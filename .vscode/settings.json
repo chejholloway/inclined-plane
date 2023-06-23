@@ -15,5 +15,8 @@
         ".vscode",
         ".gitignore",
         "package-lock.json"
+    ],
+    "conventionalCommits.scopes": [
+        "global"
     ]
 }
