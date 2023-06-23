@@ -37,7 +37,7 @@ function App() {
   if (error) return "Error!";
   return (
     <>
-      <pre>{JSON.stringify(data)}</pre>
+      <div className="typewriter">{data}</div>
     </>
 
 
