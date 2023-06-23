@@ -1,57 +1,41 @@
-import React, { useState, useEffect } from "react";
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import useFetch from './hooks/useFetch'
+import './App.css'
 
 function App() {
-  const [data, setData] = useState(null);
-  const [flag, setFlag] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const FLAG_URL =
+    'https://wgg522pwivhvi5gqsn675gth3q0otdja.lambda-url.us-east-1.on.aws/776173'
+  const { data: flag, loading, error } = useFetch(FLAG_URL)
+  const [animatedFlag, setAnimatedFlag] = useState('')
 
   useEffect(() => {
+    if (flag && flag.length > 0) {
+      let currentIndex = 0
+      const interval = setInterval(() => {
+        if (currentIndex < flag.length) {
+          setAnimatedFlag((prevFlag) => prevFlag + flag[currentIndex - 1])
+          currentIndex++
+        } else {
+          clearInterval(interval)
+        }
+      }, 500)
 
-   const fetchData = () => {
-      fetch("https://wgg522pwivhvi5gqsn675gth3q0otdja.lambda-url.us-east-1.on.aws/70726f")
-        .then((response) => {
-           let html = response.text();
-           return html;
-        })
-        .then((data) => {
-           let flag = [...data]
-           
-           setFlag(flag);
-           setData(data);
-           console.log("FLAG:  ", flag);
-        })
-        .catch((err) => { 
-           setError(error);
-           console.log('Fetch Error', err);  
-        })
-        .finally(() => {
-           setLoading(false);
-         });        
-
+      return () => {
+        clearInterval(interval)
+      }
     }
+  }, [flag])
 
-    fetchData();
-  }, [error, data]);
-  
-  
-
-  if (loading) return "Loading...";
-  if (error) return "Error!";
+  if (loading) return 'Loading...'
+  if (error) return 'Error!'
   return (
-   <div className="container">
-      <h1 className="typewriter">
-         <ul>
-            {flag &&
-               flag.map((letter, i) => {
-                  return <li key={i}>{letter}</li>;
-            })}             
-         </ul>
-      </h1>
-   </div>
-  );
+    <ul>
+      {animatedFlag &&
+        animatedFlag.split('').map((letter, i) => {
+          return <li key={i}>{letter}</li>
+        })}
+    </ul>
+  )
 }
 
-export default App;
-
+export default App
