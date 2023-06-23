@@ -9,9 +9,10 @@ ul li {
 
 .typewriter {
   overflow: hidden;
-  border-right: .15em solid orange;
+  border-right: .15em solid rgb(0, 98, 255);
   white-space: nowrap;
-  font-size: 1.6rem;
+  height: auto;
+  font-size: 1rem;
   width: 0;
   animation: 
   typing 3.5s steps(10, end) forwards,
@@ -25,5 +26,5 @@ ul li {
 
 @keyframes blink {
   from { border-color: transparent }
-  to { border-color: orange; }
+  to { border-color: rgb(0, 98, 255); }
 }

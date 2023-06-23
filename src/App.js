@@ -16,12 +16,10 @@ function App() {
            return html;
         })
         .then((data) => {
-           setData(data);
-           console.log("DATA:  " , data);
-           console.log("TYPEOF:  " , typeof data);
            let flag = [...data]
            
            setFlag(flag);
+           setData(data);
            console.log("FLAG:  ", flag);
         })
         .catch((err) => { 
@@ -44,16 +42,13 @@ function App() {
   return (
    <div className="container">
       <h1 className="typewriter">
-         {data}
          <ul>
             {flag &&
                flag.map((letter, i) => {
-                  return <li key={i + 1}>{letter}</li>;
+                  return <li key={i}>{letter}</li>;
             })}             
          </ul>
-   
       </h1>
-
    </div>
   );
 }
