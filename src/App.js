@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [data, setData] = useState(null);
+  const [flag, setFlag] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,7 +17,12 @@ function App() {
         })
         .then((data) => {
            setData(data);
-           console.log("DATA:  " , data);           
+           console.log("DATA:  " , data);
+           console.log("TYPEOF:  " , typeof data);
+           let flag = [...data]
+           
+           setFlag(flag);
+           console.log("FLAG:  ", flag);
         })
         .catch((err) => { 
            setError(error);
@@ -36,12 +42,19 @@ function App() {
   if (loading) return "Loading...";
   if (error) return "Error!";
   return (
-    <>
-      <div className="typewriter">{data}</div>
-    </>
+   <div className="container">
+      <h1 className="typewriter">
+         {data}
+         <ul>
+            {flag &&
+               flag.map((letter, i) => {
+                  return <li key={i + 1}>{letter}</li>;
+            })}             
+         </ul>
+   
+      </h1>
 
-
-    
+   </div>
   );
 }
 
